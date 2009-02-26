@@ -28,7 +28,7 @@
  * @copyright Copyright (c) 2009, Ionut Gabriel Stan. All rights reserved.
  */
 
-require_once 'library/framework.php';
+require_once 'library/components/dom.php';
 
 class igs_DefaultDomDocumentTest extends PHPUnit_Framework_TestCase
 {
