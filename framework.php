@@ -480,7 +480,8 @@ function igs_String($string)
 
 // ----------------------------------------------------------------------------
 // Collections
-// TODO REFACTOR Implementation
+// REFACTOR Vector
+// TODO Implementation
 // ----------------------------------------------------------------------------
 interface igs_VectorFactory
 {
@@ -788,7 +789,7 @@ interface igs_HttpClient
     public function setCacheAdapter(igs_CacheAdapter $adapter);
 }
 
-// TODO Might need a split up because of different implementation between
+// TODO Might need a split up because of different implementations between
 // protocols. Also, a Mozilla specific DOM storage implementation would add
 // yet more troubles
 interface igs_HttpCookie
@@ -888,7 +889,7 @@ interface igs_HttpCookie
 
 // ----------------------------------------------------------------------------
 // Date and Time utilities
-// TODO Continue implementation
+// TODO Implementation
 // ----------------------------------------------------------------------------
 interface igs_Date
 {
@@ -983,3 +984,98 @@ interface igs_WebApplication
 {
     public function serveRequest(igs_HttpRequest $request);
 }
+
+
+// ----------------------------------------------------------------------------
+// DOM utilities
+// TODO Implementation
+// ----------------------------------------------------------------------------
+interface igs_DomDocument
+{
+    /**
+     * The constructor should register as DOM objects 3 classes, each of which
+     * must implement respectively:
+     *  - igs_DomElement
+     *  - igs_DomNodeList
+     *  - igs_DomNamedNodeMap
+     */
+    public function __construct();
+
+    public function getElementsByClassName($className);
+
+    public function querySelector($selector);
+
+    public function querySelectorAll($selector);
+
+    /**
+     * Returns the markup of the document as a string
+     */
+    public function __toString();
+}
+
+interface igs_DomElement
+{
+    public function getElementsByClassName($className);
+
+    public function querySelector($selector);
+
+    public function querySelectorAll($selector);
+
+    /**
+     * Returns the markup of the element as a string
+     */
+    public function __toString();
+}
+
+/*
+ * Should extend basic collection interfaces
+ */
+interface igs_DomNodeList
+{}
+
+/*
+ * Should extend basic collection interfaces
+ */
+interface igs_DomNamedNodeMap
+{}
+
+class igs_DefaultDomDocument extends DomDocument implements igs_DomDocument
+{
+    /**
+     * @internal Uses DOMDocument::C14N()
+     */
+    public function __toString()
+    {}
+}
+
+/**
+ * @return igs_DomDocument
+ */
+function igs_DefaultDomDocument($version = null, $encoding = null)
+{
+    return new igs_DefaultDomDocument($version, $encoding);
+}
+
+class igs_DefaultDomElement extends DomElement implements igs_DomElement
+{
+    /**
+     * @internal Uses DOMElement::C14N()
+     */
+    public function __toString()
+    {}
+}
+
+/**
+ * @return igs_DomElement
+ */
+function igs_DefaultDomElement($name, $value = null, $namespaceUri = null)
+{
+    return new igs_DefaultDomElement($name, $value, $namespaceUri);
+}
+
+// ----------------------------------------------------------------------------
+// FTP utilities
+// TODO Implementation
+// ----------------------------------------------------------------------------
+interface igs_FtpClient
+{}
