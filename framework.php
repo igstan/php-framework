@@ -479,7 +479,8 @@ function igs_String($string)
 
 
 // ----------------------------------------------------------------------------
-// Vector
+// Collections
+// TODO REFACTOR Implementation
 // ----------------------------------------------------------------------------
 interface igs_VectorFactory
 {
@@ -492,7 +493,18 @@ interface igs_VectorFactory
 interface igs_Vector extends ArrayAccess, Countable, Iterator
 {}
 
-// TODO Implementation
+interface igs_Set
+{}
+
+interface igs_Dictionary
+{}
+
+interface igs_List
+{}
+
+interface igs_Tuple
+{}
+
 class igs_DefaultVector implements igs_Vector
 {}
 
