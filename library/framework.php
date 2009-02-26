@@ -28,6 +28,9 @@
  * @copyright Copyright (c) 2009, Ionut Gabriel Stan. All rights reserved.
  */
 
+// REFACTOR Replace factory objects with callables, but allow objects that have
+// a factory method to be passed as arguments too.
+
 // ----------------------------------------------------------------------------
 // String
 // ----------------------------------------------------------------------------
@@ -507,7 +510,37 @@ interface igs_Tuple
 {}
 
 class igs_DefaultVector implements igs_Vector
-{}
+{
+    public function count()
+    {}
+
+    public function offsetExists($offset)
+    {}
+
+    public function offsetGet($offset)
+    {}
+
+    public function offsetSet($offset, $value)
+    {}
+
+    public function offsetUnset($offset)
+    {}
+
+    public function current()
+    {}
+
+    public function key()
+    {}
+
+    public function next()
+    {}
+
+    public function rewind()
+    {}
+
+    public function valid()
+    {}
+}
 
 
 // ----------------------------------------------------------------------------
@@ -1015,14 +1048,34 @@ interface igs_DomDocument
 
 interface igs_DomElement
 {
+    /**
+     * @param  string $className
+     * @return igs_DomNodeList
+     */
     public function getElementsByClassName($className);
 
+    /**
+     * @param  string $selector
+     * @return igs_DomElement
+     */
     public function querySelector($selector);
 
+    /**
+     * @param  string $selector
+     * @return igs_DomNodeList
+     */
     public function querySelectorAll($selector);
 
     /**
      * Returns the markup of the element as a string
+     *
+     * @return igs_String
+     */
+    public function toString(igs_StringFactory $factory);
+
+    /**
+     * Returns the markup of the element as a string
+     * @internal It should call self::toString()->toString();
      */
     public function __toString();
 }
@@ -1042,10 +1095,63 @@ interface igs_DomNamedNodeMap
 class igs_DefaultDomDocument extends DomDocument implements igs_DomDocument
 {
     /**
-     * @internal Uses DOMDocument::C14N()
+     * @internal Registers DomElement, DomNodeList and DomNamedNodeMap as new
+     * classes to be used internally
+     * @param string $version
+     * @param string $encoding
+     */
+    public function __construct($version = null, $encoding = null)
+    {
+        parent::__construct($version, $encoding);
+
+        $this->registerNodeClass('DomElement', igs_DefaultDomElement());
+        $this->registerNodeClass('DomNodeList', igs_DefaultDomNodeList());
+        $this->registerNodeClass('DomNamedNodeMap', igs_DefaultNamedNodeMap());
+    }
+
+    /**
+     * @param  string $className
+     * @return igs_DomNodeList
+     */
+    public function getElementsByClassName($className)
+    {}
+
+    /**
+     * @param  string $selector
+     * @return igs_DomElement
+     */
+    public function querySelector($selector)
+    {}
+
+    /**
+     * @param  string $selector
+     * @return igs_DomNodeList
+     */
+    public function querySelectorAll($selector)
+    {}
+
+    /**
+     * @internal Uses DomElement::C14N()
+     * @param  igs_StringFactory $factory OPTIONAL
+     * @return igs_String
+     */
+    public function toString(igs_StringFactory $factory = null)
+    {
+        if ($factory === null) {
+            $factory = igs_DefaultStringFactory();
+        }
+
+        $source = html_entity_decode($this->C14N());
+        return $factory->createString($source);
+    }
+
+    /**
+     * @internal Uses DomDocument::C14N()
      */
     public function __toString()
-    {}
+    {
+        return $this->toString()->toString();
+    }
 }
 
 /**
@@ -1059,10 +1165,48 @@ function igs_DefaultDomDocument($version = null, $encoding = null)
 class igs_DefaultDomElement extends DomElement implements igs_DomElement
 {
     /**
-     * @internal Uses DOMElement::C14N()
+     * @param  string $className
+     * @return igs_DomNodeList
+     */
+    public function getElementsByClassName($className)
+    {}
+
+    /**
+     * @param  string $selector
+     * @return igs_DomElement
+     */
+    public function querySelector($selector)
+    {}
+
+    /**
+     * @param  string $selector
+     * @return igs_DomNodeList
+     */
+    public function querySelectorAll($selector)
+    {}
+
+    /**
+     * @internal Uses DomElement::C14N()
+     * @param  igs_StringFactory $factory OPTIONAL
+     * @return igs_String
+     */
+    public function toString(igs_StringFactory $factory = null)
+    {
+        if ($factory === null) {
+            $factory = igs_DefaultStringFactory();
+        }
+
+        $source = html_entity_decode($this->C14N());
+        return $factory->createString($source);
+    }
+
+    /**
+     * @internal Uses DomElement::C14N()
      */
     public function __toString()
-    {}
+    {
+        return $this->toString()->toString();
+    }
 }
 
 /**
