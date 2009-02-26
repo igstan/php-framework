@@ -50,11 +50,12 @@ interface igs_DomDocument
     /**
      * This method accepts a optional argument that is responsible of creating
      * an instance of igs_String which will eventually be returned. If it does
-     * not return an instance of igs_String an InvalidArgumentException will be
+     * not return an instance of igs_String an UnexpectedValueException will be
      * thrown.
      *
      * @param  callback $callback OPTIONAL
      * @return igs_String
+     * @throws UnexpectedValueException
      */
     public function toString($callback = null);
 
@@ -87,11 +88,12 @@ interface igs_DomElement
     /**
      * This method accepts a optional argument that is responsible of creating
      * an instance of igs_String which will eventually be returned. If it does
-     * not return an instance of igs_String an InvalidArgumentException will be
+     * not return an instance of igs_String an UnexpectedValueException will be
      * thrown.
      *
      * @param  callback $callback
      * @return igs_String
+     * @throws UnexpectedValueException
      */
     public function toString($callback = null);
 
@@ -155,13 +157,13 @@ class igs_DefaultDomDocument extends DomDocument implements igs_DomDocument
     /**
      * This method accepts a optional argument that is responsible of creating
      * an instance of igs_String which will eventually be returned. If it does
-     * not return an instance of igs_String an InvalidArgumentException will be
+     * not return an instance of igs_String an UnexpectedValueException will be
      * thrown.
      *
      * @internal Uses DomElement::C14N()
      * @param  callable $callback
      * @return igs_String
-     * @throws InvalidArgumentException
+     * @throws UnexpectedValueException
      */
     public function toString($callback = null)
     {
@@ -173,7 +175,7 @@ class igs_DefaultDomDocument extends DomDocument implements igs_DomDocument
         $string = call_user_func($factory, $source);
 
         if (! $string instanceof igs_String) {
-            throw new InvalidArgumentException(
+            throw new UnexpectedValueException(
                 "$callableName does not return an instance of igs_String"
             );
         }
@@ -224,13 +226,13 @@ class igs_DefaultDomElement extends DomElement implements igs_DomElement
     /**
      * This method accepts a optional argument that is responsible of creating
      * an instance of igs_String which will eventually be returned. If it does
-     * not return an instance of igs_String an InvalidArgumentException will be
+     * not return an instance of igs_String an UnexpectedValueException will be
      * thrown.
      *
      * @internal Uses DomElement::C14N()
      * @param  callback $callback OPTIONAL
      * @return igs_String
-     * @throws InvalidArgumentException
+     * @throws UnexpectedValueException
      */
     public function toString($callback = null)
     {
@@ -242,7 +244,7 @@ class igs_DefaultDomElement extends DomElement implements igs_DomElement
         $string = call_user_func($factory, $source);
 
         if (! $string instanceof igs_String) {
-            throw new InvalidArgumentException(
+            throw new UnexpectedValueException(
                 "$callableName does not return an instance of igs_String"
             );
         }
