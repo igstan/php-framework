@@ -29,4 +29,59 @@
  */
 
 interface igs_FtpClient
+{
+    /**
+     * @param string  $host
+     * @param string  $user
+     * @param string  $pass
+     * @param integer $port    OPTIONAL Defaults to 21
+     * @param integer $timeout OPTIONAL Defaults to 90 seconds
+     */
+    public function __construct($host, $user, $pass, $port = 21, $timeout = 90);
+
+    /**
+     * @param  string $fromServer
+     * @param  string|igs_File|igs_Directory $toLocal
+     * @return void
+     * @throws Exception
+     */
+    public function download($fromServer, $toLocal);
+
+    /**
+     * @param  string|igs_File|igs_Directory $fromLocal
+     * @param  string $toServer
+     * @return void
+     * @throws Exception
+     */
+    public function upload($fromLocal, $toServer);
+
+    /**
+     * @param  integer $quota
+     * @return igs_FtpClient
+     */
+    public function allocateSpace($quota);
+
+    /**
+     * @param  string $newDirectory
+     * @return igs_FtpClient
+     */
+    public function changeDirectory($newDirectory);
+
+    /**
+     * @param  string $directoryName
+     * @return igs_FtpClient
+     */
+    public function createDirectory($directoryName);
+
+    /**
+     * @param  string $rawCommand
+     * @return mixed
+     */
+    public function sendCommand($rawCommand);
+}
+
+interface igs_FtpFile extends ArrayAccess, Iterator
+{}
+
+interface igs_FtpDirectory extends Countable, ArrayAccess, Iterator
 {}
