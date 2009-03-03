@@ -74,13 +74,18 @@ interface igs_FtpClient
     public function createDirectory($directoryName);
 
     /**
+     * Send a raw FTP command to the FTP server. The server may or may not
+     * support that command. In the latter case an igs_UnsuportedCommandException
+     * is thrown.
+     *
+     * @todo Check that we can throw an igs_UnsuportedCommandException
      * @param  string $rawCommand
      * @return mixed
      */
     public function sendCommand($rawCommand);
 }
 
-interface igs_FtpFile extends ArrayAccess, Iterator
+interface igs_FtpFile extends ArrayAccess, Iterator, igs_Stream
 {}
 
 interface igs_FtpDirectory extends Countable, ArrayAccess, Iterator
