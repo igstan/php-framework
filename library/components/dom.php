@@ -236,7 +236,7 @@ class igs_DefaultDomElement extends DomElement implements igs_DomElement
      */
     public function toString($callback = null)
     {
-    if (! is_callable($factory, false, $callableName)) {
+        if (! is_callable($factory, false, $callableName)) {
             $factory = 'igs_DefaultString';
         }
 
