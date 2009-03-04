@@ -28,16 +28,62 @@
  * @copyright Copyright (c) 2009, Ionut Gabriel Stan. All rights reserved.
  */
 
-interface igs_VectorFactory
+interface igs_CollectionFactory
 {
     /**
-     * @param array $vectorWannabe
+     * @param mixed $collectionWannabe
      */
-    public function createVector(array $vectorWannabe);
+    public function createCollection($collectionWannabe);
 }
 
-interface igs_Vector extends ArrayAccess, Countable, Iterator
-{}
+interface igs_Collection extends ArrayAccess, Countable, Iterator
+{
+    /**
+     * @param callback    $callback
+     * @param iterateable $arguments OPTIONAL
+     */
+    public function map($callback, $arguments = null);
+
+    /**
+     * @param callback    $callback
+     * @param iterateable $arguments OPTIONAL
+     */
+    public function each($callback, $arguments = null);
+
+    /**
+     * @param callback    $callback
+     * @param mixed       $initialValue OPTIONAL
+     * @param mixed       $initialKey   OPTIONAL
+     * @param iterateable $arguments    OPTIONAL
+     */
+    public function reduce($callback, $initialValue = null, $initialKey = null, $arguments = null);
+
+    /**
+     * @param callback    $callback
+     * @param mixed       $initialValue OPTIONAL
+     * @param mixed       $initialKey   OPTIONAL
+     * @param iterateable $arguments    OPTIONAL
+     */
+    public function reduceRight($callback, $initialValue = null, $initialKey = null, $arguments = null);
+
+    /**
+     * @param callback    $callback
+     * @param iterateable $arguments OPTIONAL
+     */
+    public function filter($callback, $arguments = null);
+
+    /**
+     * @param callback    $callback
+     * @param iterateable $arguments OPTIONAL
+     */
+    public function some($callback, $arguments = null);
+
+    /**
+     * @param callback    $callback
+     * @param iterateable $arguments OPTIONAL
+     */
+    public function every($callback, $arguments = null);
+}
 
 interface igs_Set
 {}
@@ -51,7 +97,7 @@ interface igs_List
 interface igs_Tuple
 {}
 
-class igs_DefaultVector implements igs_Vector
+class igsd_Collection implements igs_Collection
 {
     public function count()
     {}
