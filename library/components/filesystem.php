@@ -44,7 +44,7 @@ interface igs_File extends ArrayAccess, Iterator
     {}
 }
 
-class igs_DefaultFile implements igs_File
+class igsd_File implements igs_File
 {}
 
 /**
@@ -52,15 +52,15 @@ class igs_DefaultFile implements igs_File
  * @return igs_File
  * @throws igs_FileNotFoundException
  */
-function igs_DefaultFile($path = null)
+function igsd_File($path = null)
 {
-    return new igs_File($path);
+    return new igsd_File($path);
 }
 
 interface igs_Directory extends Countable, ArrayAccess, Iterator
 {}
 
-class igs_DefaultDirectory implements igs_Directory
+class igsd_Directory implements igs_Directory
 {}
 
 /**
@@ -68,7 +68,7 @@ class igs_DefaultDirectory implements igs_Directory
  * @return unknown
  * @throws igs_FileNotFoundException
  */
-function igs_DefaultDirectory($path = null)
+function igsd_Directory($path = null)
 {
-    return new igs_DefaultDirectory($path = null);
+    return new igsd_Directory($path = null);
 }

@@ -30,17 +30,17 @@
 
 require_once 'library/components/dom.php';
 
-class igs_DefaultDomDocumentTest extends PHPUnit_Framework_TestCase
+class igsd_DomDocumentTest extends PHPUnit_Framework_TestCase
 {
     /**
-     * @var igs_DefaultDomDocument
+     * @var igsd_DomDocument
      */
     protected $dom;
 
 
     public function setUp()
     {
-        $this->dom = igs_DefaultDomDocument();
+        $this->dom = igsd_DomDocument();
         $this->dom->loadHTMLFile(dirname(__FILE__) . 'fixtures/default-dom-document.html');
     }
 

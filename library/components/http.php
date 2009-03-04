@@ -163,15 +163,15 @@ interface igs_HttpRequest
 }
 
 // TODO Implementation
-class igs_DefaultHttpRequest implements igs_HttpRequest
+class igsd_HttpRequest implements igs_HttpRequest
 {}
 
 /**
  * @return igs_DefaultHttpRequest
  */
-function igs_DefaultHttpRequest()
+function igsd_HttpRequest()
 {
-    return new igs_DefaultHttpRequest;
+    return new igsd_HttpRequest;
 }
 
 interface igs_HttpResponse
@@ -233,15 +233,15 @@ interface igs_HttpResponse
 }
 
 // TODO Implementation
-class igs_DefaultHttpResponse implements igs_HttpResponse
+class igsd_HttpResponse implements igs_HttpResponse
 {}
 
 /**
  * @return igs_DefaultHttpResponse
  */
-function igs_DefaultHttpResponse()
+function igsd_HttpResponse()
 {
-    return new igs_DefaultHttpResponse;
+    return new igsd_HttpResponse;
 }
 
 interface igs_HttpResponseBuilder

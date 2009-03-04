@@ -28,7 +28,7 @@
  * @copyright Copyright (c) 2009, Ionut Gabriel Stan. All rights reserved.
  */
 
-class igs_String implements ArrayAccess, Countable, Iterator
+class igsd_String implements ArrayAccess, Countable, Iterator
 {
     /**
      * @var string
@@ -161,7 +161,7 @@ class igs_String implements ArrayAccess, Countable, Iterator
     /**
      * @param  string  $search
      * @param  string  $replace
-     * @param  boolean $caseInsensitive Default to false
+     * @param  boolean $caseInsensitive Defaults to false
      * @return igs_String
      */
     public function replace($search, $replace, $caseInsensitive = false)
@@ -240,7 +240,7 @@ class igs_String implements ArrayAccess, Countable, Iterator
 
     /**
      * @param  string  $string
-     * @param  boolean $caseInsensitive Default to true
+     * @param  boolean $caseInsensitive Defaults to true
      * @return boolean
      */
     public function compare($string, $caseInsensitive = true)
@@ -469,7 +469,7 @@ class igs_String implements ArrayAccess, Countable, Iterator
  * @param  string
  * @return igs_String
  */
-function igs_String($string)
+function igsd_String($string)
 {
-    return new igs_String($string);
+    return new igsd_String($string);
 }

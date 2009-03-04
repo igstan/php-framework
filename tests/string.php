@@ -30,7 +30,7 @@
 
 require_once 'library/components/string.php';
 
-class igs_DefaultStringTest extends PHPUnit_Framework_TestCase
+class igsd_StringTest extends PHPUnit_Framework_TestCase
 {
     // TODO Write tests
 }

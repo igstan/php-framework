@@ -31,5 +31,5 @@
 // TODO Implementation
 // Register a stream wrapper which, when including source files, removes
 // license comments and PHP tags, thus the output is only source code.
-class Builder
+class igsd_Builder
 {}

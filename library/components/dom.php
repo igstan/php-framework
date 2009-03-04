@@ -116,7 +116,7 @@ interface igs_DomNodeList
 interface igs_DomNamedNodeMap
 {}
 
-class igs_DefaultDomDocument extends DomDocument implements igs_DomDocument
+class igsd_DomDocument extends DomDocument implements igs_DomDocument
 {
     /**
      * @internal Registers DomElement, DomNodeList and DomNamedNodeMap as new
@@ -195,12 +195,12 @@ class igs_DefaultDomDocument extends DomDocument implements igs_DomDocument
 /**
  * @return igs_DomDocument
  */
-function igs_DefaultDomDocument($version = null, $encoding = null)
+function igsd_DomDocument($version = null, $encoding = null)
 {
-    return new igs_DefaultDomDocument($version, $encoding);
+    return new igsd_DomDocument($version, $encoding);
 }
 
-class igs_DefaultDomElement extends DomElement implements igs_DomElement
+class igsd_DomElement extends DomElement implements igs_DomElement
 {
     /**
      * @param  string $className
@@ -262,7 +262,7 @@ class igs_DefaultDomElement extends DomElement implements igs_DomElement
 /**
  * @return igs_DomElement
  */
-function igs_DefaultDomElement($name, $value = null, $namespaceUri = null)
+function igsd_DomElement($name, $value = null, $namespaceUri = null)
 {
-    return new igs_DefaultDomElement($name, $value, $namespaceUri);
+    return new igsd_DomElement($name, $value, $namespaceUri);
 }

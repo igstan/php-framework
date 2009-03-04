@@ -28,13 +28,13 @@
  * @copyright Copyright (c) 2009, Ionut Gabriel Stan. All rights reserved.
  */
 
-// REFACTOR Replace factory objects with callables, but allow objects that have
+// TODO Replace factory objects with callables, but allow objects that have
 // a factory method to be passed as arguments too.
 
 // ----------------------------------------------------------------------------
 // String
 // ----------------------------------------------------------------------------
-class igs_String implements ArrayAccess, Countable, Iterator
+class igsd_String implements ArrayAccess, Countable, Iterator
 {
     /**
      * @var string
@@ -475,9 +475,9 @@ class igs_String implements ArrayAccess, Countable, Iterator
  * @param  string
  * @return igs_String
  */
-function igs_String($string)
+function igsd_String($string)
 {
-    return new igs_String($string);
+    return new igsd_String($string);
 }
 
 
@@ -509,7 +509,7 @@ interface igs_List
 interface igs_Tuple
 {}
 
-class igs_DefaultVector implements igs_Vector
+class igsd_Vector implements igs_Vector
 {
     public function count()
     {}
@@ -681,15 +681,15 @@ interface igs_HttpRequest
 }
 
 // TODO Implementation
-class igs_DefaultHttpRequest implements igs_HttpRequest
+class igsd_HttpRequest implements igs_HttpRequest
 {}
 
 /**
  * @return igs_DefaultHttpRequest
  */
-function igs_DefaultHttpRequest()
+function igsd_HttpRequest()
 {
-    return new igs_DefaultHttpRequest;
+    return new igsd_HttpRequest;
 }
 
 interface igs_HttpResponse
@@ -751,15 +751,15 @@ interface igs_HttpResponse
 }
 
 // TODO Implementation
-class igs_DefaultHttpResponse implements igs_HttpResponse
+class igsd_HttpResponse implements igs_HttpResponse
 {}
 
 /**
  * @return igs_DefaultHttpResponse
  */
-function igs_DefaultHttpResponse()
+function igsd_HttpResponse()
 {
-    return new igs_DefaultHttpResponse;
+    return new igsd_HttpResponse;
 }
 
 interface igs_HttpResponseBuilder
@@ -1092,7 +1092,7 @@ interface igs_DomNodeList
 interface igs_DomNamedNodeMap
 {}
 
-class igs_DefaultDomDocument extends DomDocument implements igs_DomDocument
+class igsd_DomDocument extends DomDocument implements igs_DomDocument
 {
     /**
      * @internal Registers DomElement, DomNodeList and DomNamedNodeMap as new
@@ -1157,12 +1157,12 @@ class igs_DefaultDomDocument extends DomDocument implements igs_DomDocument
 /**
  * @return igs_DomDocument
  */
-function igs_DefaultDomDocument($version = null, $encoding = null)
+function igsd_DomDocument($version = null, $encoding = null)
 {
-    return new igs_DefaultDomDocument($version, $encoding);
+    return new igsd_DomDocument($version, $encoding);
 }
 
-class igs_DefaultDomElement extends DomElement implements igs_DomElement
+class igsd_DomElement extends DomElement implements igs_DomElement
 {
     /**
      * @param  string $className
@@ -1212,9 +1212,9 @@ class igs_DefaultDomElement extends DomElement implements igs_DomElement
 /**
  * @return igs_DomElement
  */
-function igs_DefaultDomElement($name, $value = null, $namespaceUri = null)
+function igsd_DomElement($name, $value = null, $namespaceUri = null)
 {
-    return new igs_DefaultDomElement($name, $value, $namespaceUri);
+    return new igsd_DomElement($name, $value, $namespaceUri);
 }
 
 // ----------------------------------------------------------------------------

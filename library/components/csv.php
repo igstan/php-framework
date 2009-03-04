@@ -23,7 +23,7 @@ interface igs_CsvWriter
     public function __construct($data, $options = array());
 }
 
-class igs_DefaultCsvReader implements igs_CsvReader
+class igsd_CsvReader implements igs_CsvReader
 {
     /**
      * @var string Character that separates cell values
@@ -104,9 +104,9 @@ class igs_DefaultCsvReader implements igs_CsvReader
  * @param  array|ArrayAccess $options
  * @return igs_DefaultCsvReader
  */
-function igs_DefaultCsvReader($data, $options = array())
+function igsd_CsvReader($data, $options = array())
 {
-    return new igs_DefaultCsvReader($data, $options);
+    return new igsd_CsvReader($data, $options);
 }
 
 define('igs_DefaultCsvReader', 'igs_DefaultCsvReader');
