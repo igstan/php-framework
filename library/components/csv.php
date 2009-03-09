@@ -109,4 +109,4 @@ function igsd_CsvReader($data, $options = array())
     return new igsd_CsvReader($data, $options);
 }
 
-define('igs_DefaultCsvReader', 'igs_DefaultCsvReader');
+define('igsd_CsvReader', 'igsd_CsvReader');
