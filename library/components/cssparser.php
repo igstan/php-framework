@@ -42,7 +42,7 @@
  * @property $title
  * @property $type
  */
-class igs_CSSStyleSheet
+class igs_CssStyleSheet
 {
     public function deleteRule()
     {}
@@ -60,7 +60,7 @@ class igs_CSSStyleSheet
  * @property $parentStyleSheet
  * @property $type
  */
-class igs_CSSRule
+class igs_CssRule
 {
     const STYLE_RULE     = 0x01;
     const MEDIA_RULE     = 0x02;
@@ -75,15 +75,15 @@ class igs_CSSRule
  * @property $selectorText
  * @property $style
  */
-class igs_CSSStyleRule extends igs_CSSRule
+class igs_CssStyleRule extends igs_CssRule
 {
 
 }
 
-class igs_CSSStyleDeclaration
+class igs_CssStyleDeclaration
 {}
 
-class igs_CSSParser implements ArrayAccess, Countable, Iterator
+class igs_CssParser implements ArrayAccess, Countable, Iterator
 {
     protected $buffer;
 
