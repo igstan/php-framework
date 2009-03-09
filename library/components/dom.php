@@ -202,6 +202,68 @@ function igsd_DomDocument($version = null, $encoding = null)
 
 class igsd_DomElement extends DomElement implements igs_DomElement
 {
+    public function __construct($name, $contents = null, $attributes = null, $namespaceUri = null)
+    {
+        parent::__construct($name, null, $namespaceUri);
+
+        $this->innerHTML = $contents;
+        $this->setAttributes($attributes);
+    }
+
+    protected function setInnerHTML($html)
+    {
+        $fragment = $this->ownerDocument->createDocumentFragment();
+        $fragment->appendXML($html);
+        $this->appendChild($fragment);
+
+        return $this;
+    }
+
+    /**
+     * @param  iterateable $attributes
+     * @return igs_DomElement
+     * @throws InvalidArgumentException
+     */
+    protected function setAttributes($attributes)
+    {
+        if (is_array($attributes) || $attributes instanceof Traversable) {
+            foreach ($attributes as $name => $value) {
+                $this->setAttribute($name, $value);
+            }
+
+            return $this;
+        }
+
+        throw new InvalidArgumentException('Attributes must be an array or a Traversable');
+    }
+
+    public function __get($property)
+    {
+        $method = $this->formatMethodName($property);
+
+        if (method_exists($this, $method)) {
+            return $this->$method();
+        } else {
+            throw new RuntimeException;
+        }
+    }
+
+    public function __set($property, $arguments)
+    {
+        $method = $this->formatMethodName($property);
+
+        if (method_exists($this, $method)) {
+            call_user_func_array(array($this, $method), $arguments);
+        } else {
+            throw new RuntimeException;
+        }
+    }
+
+    protected function formatMethodName($method)
+    {
+        return 'get' . ucfirst($property);
+    }
+
     /**
      * @param  string $className
      * @return igs_DomNodeList
