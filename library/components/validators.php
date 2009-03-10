@@ -29,31 +29,62 @@
  * @category  Validators
  */
 
+// TODO Should I let this here for IDE support?
 interface igs_Validator
 {
-    public function validates();
+    /**
+     * @param  mixed $object
+     * @return boolean
+     */
+    public function validates($object);
 }
 
 /**
  * Implements Specification pattern
  *
- * @method or();
- * @method and();
- * @method not();
+ * @method igsd_CompositeValidator  or()  or(igs_Validator $rightOperand)
+ * @method igsd_CompositeValidator and() and(igs_Validator $rightOperand)
+ * @method igsd_CompositeValidator not() not(igs_Validator $rightOperand)
  */
-abstract class igsd_Validator implements igs_Validator
+abstract class igsd_Validator
 {
+    /**
+     * @param  mixed $object
+     * @return boolean
+     */
     abstract public function validates($object);
 
     /**
-     * TODO Explain why __call
+     * We couldn't write 3 separate methods because PHP does not allow
+     * reserved words as name of methods in declarations. On the other hand it
+     * allows reserved words when calling methods. So using __call() is a
+     * workaround for this limitation that allows us to have a nicer API for
+     * objects implementing the Specification pattern.
+     *
+     * Why __call() instead of __get()/__set(). Because call allows grouping
+     * of operators in one argument. We couldn't have achieved this with
+     * getters/setters.
+     *
+     * @param  string $operator      One of 'or', 'and', 'not'
+     * @param  array  $rightOperands Contains the other validator to which this
+     *      one should be composed with in the moment of validation.
+     * @return igsd_CompositeValidator
+     * @throws BadMethodCallException when operator is not supported
+     * @throws InvalidArgumentException when right operand does not have a
+     *      validates() method.
      */
-    public function __call($operator, $rightOperands)
+    public function __call($operator, $rightOperand)
     {
         $operators = array('or', 'and', 'not');
 
         if (! in_array($operator, $operators)) {
-            throw new LogicException('Operator not supported');
+            throw new BadMethodCallException('Operator not supported');
+        }
+
+        if (! is_callable($rightOperand[0], 'validates')) {
+            throw new InvalidArgumentException(
+                'Right operand object must have a "validates()" method'
+            );
         }
 
         $validator = 'igsd_' . ucfirst(strtolower($operator)) . 'Specification';
@@ -61,21 +92,53 @@ abstract class igsd_Validator implements igs_Validator
     }
 }
 
+/**
+ * Implements Specification pattern
+ */
 abstract class igsd_CompositeValidator extends igsd_Validator
 {
+    /**
+     * @var igs_Validator
+     */
     protected $leftOperand;
 
+    /**
+     * @var igs_Validator
+     */
     protected $rightOperand;
 
-    public function __construct(igs_Validator $leftOperand, igs_Validator $rightOperand)
+    /**
+     * @param igs_Validator $leftOperand
+     * @param igs_Validator $rightOperand
+     */
+    public function __construct($leftOperand, $rightOperand)
     {
+        if (! is_callable(array($leftOperand, 'validates'))) {
+            throw new InvalidArgumentException(
+                'Left operand object must have a "validates()" method'
+            );
+        }
+
+        if (! is_callable(array($rightOperand, 'validates'))) {
+            throw new InvalidArgumentException(
+                'Right operand object must have a "validates()" method'
+            );
+        }
+
         $this->leftOperand  = $leftOperand;
         $this->rightOperand = $rightOperand;
     }
 }
 
+/**
+ * Implements Specification pattern
+ */
 class igsd_AndValidator extends igsd_CompositeValidator
 {
+    /**
+     * @param  mixed $object
+     * @return boolean
+     */
     public function validates($object)
     {
         $leftOperand  = $this->leftOperand->validates($object);
@@ -85,8 +148,15 @@ class igsd_AndValidator extends igsd_CompositeValidator
     }
 }
 
+/**
+ * Implements Specification pattern
+ */
 class igsd_OrValidator extends igsd_CompositeValidator
 {
+    /**
+     * @param  mixed $object
+     * @return boolean
+     */
     public function validates($object)
     {
         $leftOperand  = $this->leftOperand->validates($object);
@@ -96,8 +166,15 @@ class igsd_OrValidator extends igsd_CompositeValidator
     }
 }
 
+/**
+ * Implements Specification pattern
+ */
 class igsd_NotSpecification extends igsd_CompositeValidator
 {
+    /**
+     * @param  mixed $object
+     * @return boolean
+     */
     public function validates($object)
     {
         $leftOperand  = $this->leftOperand->validates($object);
