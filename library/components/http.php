@@ -355,10 +355,10 @@ interface igs_HttpCookie
     public function getValue();
 
     /**
-     * @param  igs_DateFactory $dateFactory OPTIONAL
+     * @param  callable $dateFactory OPTIONAL
      * @return integer|igs_Date
      */
-    public function getExpiryTime(igs_DateFactory $dateFactory = null);
+    public function getExpiryTime($dateFactory = null);
 
     /**
      * @return boolean
@@ -399,4 +399,9 @@ interface igs_HttpCookie
      * @return boolean
      */
     public function isSecondProtocolCookie();
+}
+
+interface igs_HttpCookies extends ArrayAccess, Countable, Iterator
+{
+
 }
