@@ -472,35 +472,63 @@ interface igs_Url
 class igsd_Url implements igs_Url
 {
     /**
-     * @param string|array|object $url
+     * @param  string|array|object $url
+     * @throws InvalidArgumentException
      */
     public function __construct($url)
     {}
 
+    /**
+     * @return string
+     */
     public function protocol()
     {}
 
+    /**
+     * @return null|integer
+     */
     public function port()
     {}
 
+    /**
+     * @return string
+     */
     public function hostname()
     {}
 
+    /**
+     * @return null|string
+     */
     public function path()
     {}
 
+    /**
+     * @return null|string|array
+     */
     public function queryString($asArray = true)
     {}
 
+    /**
+     * @return string
+     */
     public function queryStringDelimiter()
     {}
 
+    /**
+     * @return null|string
+     */
     public function fragment()
     {}
 
+    /**
+     * @return null|string
+     */
     public function username()
     {}
 
+    /**
+     * @return null|string
+     */
     public function password()
     {}
 }
@@ -519,3 +547,38 @@ function igsd_Url($url)
  * @package HTTP
  */
 define('igsd_Url', 'igsd_Url');
+
+/**
+ * @package HTTP
+ */
+interface igs_HttpProxy
+{
+    /**
+     * The filter may implement any of the following methods:
+     *
+     * <ul>
+     *      <li>requestHeaders($httpProxy)</li>
+     *      <li>requestBody($httpProxy)</li>
+     *      <li>responseHeaders($httpProxy)</li>
+     *      <li>responseBody($httpProxy)</li>
+     * </ul>
+     *
+     * @param object $filter
+     */
+    public function registerFilter($filter);
+
+    /**
+     * @param integer|object Index or filter instance
+     */
+    public function removeFilter($filter);
+
+    /**
+     * @return array All registered filters with this HTTP proxy
+     */
+    public function filters();
+
+    /**
+     * @return igs_HttpResponse
+     */
+    public function proxyRequest($request = null);
+}
