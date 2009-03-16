@@ -28,6 +28,8 @@
  * @copyright Copyright (c) 2009, Ionut Gabriel Stan. All rights reserved.
  * @category  Browser
  * @package   Browser
+ * @uses      HTTP
+ * @uses      DOM
  */
 
 /**
@@ -35,20 +37,70 @@
  */
 interface igs_Browser
 {
-    public function __construct($url);
+    /**
+     * @param  string
+     * @return igs_Browser
+     */
+    public function navigateTo($url);
+
+    /**
+     * @return void
+     */
+    public function enableCookies();
+
+    /**
+     * @return void
+     */
+    public function disableCookies();
+
+    /**
+     * @return boolean
+     */
+    public function acceptsCookies();
+
+    /**
+     * @param  object $plugin
+     * @return void
+     */
+    public function registerPlugin($plugin);
+
+    /**
+     * @return void
+     */
+    public function removePlugin($plugin);
+
+    /**
+     * @return array
+     */
+    public function plugins();
+
+    /**
+     * @return void
+     */
+    public function abortProcessing();
 }
 
 /**
  * @package Browser
  */
-class igsd_Browser
+class igsd_Browser implements igs_Browser
 {}
 
 /**
  * @package Browser
- * @return  igsd_Browser
+ * @return  igs_Browser
  */
 function igsd_Browser()
 {
     return new igsd_Browser;
+}
+
+/**
+ * TODO Implementation
+ *
+ * @package Browser
+ */
+interface igs_BrowserPlugin
+{
+
 }
