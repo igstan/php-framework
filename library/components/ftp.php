@@ -26,8 +26,13 @@
  * @author    Ionut G. Stan <ionut.g.stan@gmail.com>
  * @license   New BSD license
  * @copyright Copyright (c) 2009, Ionut Gabriel Stan. All rights reserved.
+ * @category  FTP
+ * @category  FTP
  */
 
+/**
+ * @package FTP
+ */
 interface igs_FtpClient
 {
     /**
@@ -85,8 +90,14 @@ interface igs_FtpClient
     public function sendCommand($rawCommand);
 }
 
+/**
+ * @package FTP
+ */
 interface igs_FtpFile extends ArrayAccess, Iterator, igs_Stream
 {}
 
+/**
+ * @package FTP
+ */
 interface igs_FtpDirectory extends Countable, ArrayAccess, Iterator
 {}
