@@ -26,14 +26,19 @@
  * @author    Ionut G. Stan <ionut.g.stan@gmail.com>
  * @license   New BSD license
  * @copyright Copyright (c) 2009, Ionut Gabriel Stan. All rights reserved.
- * @category  FileSystem
+ * @category  IO
+ * @package   IO
  */
 
-// TODO Implementation
-
+/**
+ * @package IO
+ */
 class igs_FileNotFoundException extends Exception
 {}
 
+/**
+ * @package IO
+ */
 interface igs_File extends ArrayAccess, Iterator
 {
     /**
@@ -44,29 +49,40 @@ interface igs_File extends ArrayAccess, Iterator
     {}
 }
 
+/**
+ * @package IO
+ */
 class igsd_File implements igs_File
 {}
 
 /**
- * @param  string $path OPTIONAL
- * @return igs_File
- * @throws igs_FileNotFoundException
+ * @package IO
+ * @param   string $path OPTIONAL
+ * @return  igs_File
+ * @throws  igs_FileNotFoundException
  */
 function igsd_File($path = null)
 {
     return new igsd_File($path);
 }
 
+/**
+ * @package IO
+ */
 interface igs_Directory extends Countable, ArrayAccess, Iterator
 {}
 
+/**
+ * @package IO
+ */
 class igsd_Directory implements igs_Directory
 {}
 
 /**
- * @param  string $path OPTIONAL
- * @return unknown
- * @throws igs_FileNotFoundException
+ * @package IO
+ * @param   string $path OPTIONAL
+ * @return  igsd_Directory
+ * @throws  igs_FileNotFoundException
  */
 function igsd_Directory($path = null)
 {
