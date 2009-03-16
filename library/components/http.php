@@ -26,8 +26,13 @@
  * @author    Ionut G. Stan <ionut.g.stan@gmail.com>
  * @license   New BSD license
  * @copyright Copyright (c) 2009, Ionut Gabriel Stan. All rights reserved.
+ * @category  HTTP
+ * @package   HTTP
  */
 
+/**
+ * @package HTTP
+ */
 interface igs_HttpRequest
 {
     const HTTP_1_0 = 1.0;
@@ -162,18 +167,26 @@ interface igs_HttpRequest
     public function hasArgument($name);
 }
 
-// TODO Implementation
+/**
+ * TODO Implementation
+ *
+ * @package HTTP
+ */
 class igsd_HttpRequest implements igs_HttpRequest
 {}
 
 /**
- * @return igs_DefaultHttpRequest
+ * @package HTTP
+ * @return  igs_DefaultHttpRequest
  */
 function igsd_HttpRequest()
 {
     return new igsd_HttpRequest;
 }
 
+/**
+ * @package HTTP
+ */
 interface igs_HttpResponse
 {
     /**
@@ -232,18 +245,25 @@ interface igs_HttpResponse
     public function hasBody();
 }
 
-// TODO Implementation
+/**
+ * TODO Implementation
+ * @package HTTP
+ */
 class igsd_HttpResponse implements igs_HttpResponse
 {}
 
 /**
- * @return igs_DefaultHttpResponse
+ * @package HTTP
+ * @return  igs_DefaultHttpResponse
  */
 function igsd_HttpResponse()
 {
     return new igsd_HttpResponse;
 }
 
+/**
+ * @package HTTP
+ */
 interface igs_HttpResponseBuilder
 {
     /**
@@ -291,7 +311,11 @@ interface igs_HttpResponseBuilder
     public function getResponse(igs_HttpResponseFactory $responseFactory = null);
 }
 
-// TODO Rethink
+/**
+ * TODO Rethink
+ *
+ * @package HTTP
+ */
 interface igs_HttpClient
 {
     /**
@@ -304,9 +328,13 @@ interface igs_HttpClient
     public function setCacheAdapter(igs_CacheAdapter $adapter);
 }
 
-// TODO Might need a split up because of different implementations between
-// protocols. Also, a Mozilla specific DOM storage implementation would add
-// yet more troubles
+/**
+ * TODO Might need a split up because of different implementations between
+ * protocols. Also, a Mozilla specific DOM storage implementation would add
+ * yet more troubles
+ *
+ * @package HTTP
+ */
 interface igs_HttpCookie
 {
     /**
@@ -401,7 +429,93 @@ interface igs_HttpCookie
     public function isSecondProtocolCookie();
 }
 
+/**
+ * @package HTTP
+ */
 interface igs_HttpCookies extends ArrayAccess, Countable, Iterator
 {
 
 }
+
+/**
+ * @package HTTP
+ */
+interface igs_Url
+{
+    /**
+     * @param string|array|object $url
+     */
+    public function __construct($url);
+
+    public function protocol();
+
+    public function port();
+
+    public function hostname();
+
+    public function path();
+
+    public function queryString($asArray = true);
+
+    public function queryStringDelimiter();
+
+    public function fragment();
+
+    public function username();
+
+    public function password();
+}
+
+/**
+ * @package HTTP
+ */
+class igsd_Url implements igs_Url
+{
+    /**
+     * @param string|array|object $url
+     */
+    public function __construct($url)
+    {}
+
+    public function protocol()
+    {}
+
+    public function port()
+    {}
+
+    public function hostname()
+    {}
+
+    public function path()
+    {}
+
+    public function queryString($asArray = true)
+    {}
+
+    public function queryStringDelimiter()
+    {}
+
+    public function fragment()
+    {}
+
+    public function username()
+    {}
+
+    public function password()
+    {}
+}
+
+/**
+ * @package HTTP
+ * @param   string|array|object $url
+ * @return  igsd_Url
+ */
+function igsd_Url($url)
+{
+    return new igsd_Url($url);
+}
+
+/**
+ * @package HTTP
+ */
+define('igsd_Url', 'igsd_Url');
