@@ -26,12 +26,15 @@
  * @author    Ionut G. Stan <ionut.g.stan@gmail.com>
  * @license   New BSD license
  * @copyright Copyright (c) 2009, Ionut Gabriel Stan. All rights reserved.
+ * @category  CSS Parser
+ * @package   cssparser
  */
 
 /**
  * @see https://developer.mozilla.org/en/DOM/stylesheet
  * @see http://www.w3.org/TR/DOM-Level-2-Style/css.html#CSS-CSSStyleSheet
  *
+ * @package  cssparser
  * @property $cssRules
  * @property $disabled
  * @property $href
@@ -55,6 +58,7 @@ class igs_CssStyleSheet
  * @see https://developer.mozilla.org/en/DOM/cssRule
  * @see http://www.w3.org/TR/DOM-Level-2-Style/css.html#CSS-CSSRule
  *
+ * @package  cssparser
  * @property $cssText
  * @property $parentRule
  * @property $parentStyleSheet
@@ -72,6 +76,7 @@ class igs_CssRule
 }
 
 /**
+ * @package  cssparser
  * @property $selectorText
  * @property $style
  */
@@ -80,9 +85,15 @@ class igs_CssStyleRule extends igs_CssRule
 
 }
 
+/**
+ * @package cssparser
+ */
 class igs_CssStyleDeclaration
 {}
 
+/**
+ * @package cssparser
+ */
 class igs_CssParser implements ArrayAccess, Countable, Iterator
 {
     protected $buffer;

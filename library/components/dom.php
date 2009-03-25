@@ -26,6 +26,8 @@
  * @author    Ionut G. Stan <ionut.g.stan@gmail.com>
  * @license   New BSD license
  * @copyright Copyright (c) 2009, Ionut Gabriel Stan. All rights reserved.
+ * @category  DOM
+ * @package   DOM
  */
 
 require_once realpath(dirname(__FILE__) . '/string.php');
