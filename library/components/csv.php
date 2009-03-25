@@ -3,8 +3,13 @@
 interface igs_CsvReader extends ArrayAccess, Iterator
 {
     /**
-     * @param string|igs_Stream $csvFile
-     * @param array|ArrayAccess $options OPTIONAL
+     * Options may include any or all of the following keys:
+     *      - delimiter, defaults to ,(comma)
+     *      - enclosure, defaults to "(double quote)
+     *      - escape,    defaults to \(backslash)
+     *
+     * @param iterateable $csvFile
+     * @param hashmap     $options OPTIONAL
      */
     public function __construct($csvFile, $options = array());
 }
@@ -17,8 +22,8 @@ interface igs_CsvWriter
      *      - enclosure, defaults to "(double quote)
      *      - escape,    defaults to \(backslash)
      *
-     * @param array|Traversable|igs_Stream $stream
-     * @param array|ArrayAccess $options
+     * @param iterateable $stream
+     * @param hashmap     $options OPTIONAL
      */
     public function __construct($data, $options = array());
 }
@@ -28,17 +33,17 @@ class igsd_CsvReader implements igs_CsvReader
     /**
      * @var string Character that separates cell values
      */
-    protected $delimiter = ',';
+    public $_delimiter = ',';
 
     /**
      * @var string Character that encloses the value of each "cell"
      */
-    protected $enclosure = '"';
+    public $_enclosure = '"';
 
     /**
      * @var string Caracter to escape special characters
      */
-    protected $escape    = '\\';
+    public $_escape    = '\\';
 
     /**
      * Options may include any or all of the following keys:
@@ -46,43 +51,49 @@ class igsd_CsvReader implements igs_CsvReader
      *      - enclosure, defaults to "(double quote)
      *      - escape,    defaults to \(backslash)
      *
-     * @param  array|Traversable|igs_Stream $stream
-     * @param  array|ArrayAccess $options
+     * @param iterateable $stream
+     * @param hashmap     $options OPTIONAL
      */
-    public function __construct($data, $options = array())
+    public function __construct($stream, $options = array())
     {
-        $this->setStream($data);
-        $this->setOptions($options);
+        $this->_stream($stream);
+        $this->_options($options);
     }
 
     /**
      * @param  array|Traversable|igs_Stream $stream
      * @return igs_DefaultCsvReader
      */
-    protected function setStream($data)
+    public function _stream($data)
     {
-        if (! $data instanceof igs_Collection) {
-            $data = igs_DefaultCollectionFactory($data);
+        if (! (is_array($options) || $options instanceof Traversable)) {
+            throw new InvalidArgumentException(
+                '$data must be an array or an object implementing Traversable)'
+            );
         }
 
         $this->stream = $data;
         return $this;
     }
 
-    protected function setOptions($options)
+    public function _options($options)
     {
-        if (! $options instanceof igs_Collection) {
-            $option = igs_DefaultFactoryCollection($data);
+        if (! (is_array($options) || $options instanceof ArrayAccess)) {
+            throw new InvalidArgumentException(
+                '$data must be an array or an object implementing ArrayAccess'
+            );
         }
 
-        $option->each(array($this, 'setOption'));
+        foreach ($options as $option => $value) {
+            $this->option($option, $value);
+        }
     }
 
     /**
      * @param string $value
      * @param string $name  OPTIONAL
      */
-    protected function setOption($value, $name = null)
+    public function _option($value, $name = null)
     {
         $options = array('delimiter', 'enclosure', 'escape');
 
