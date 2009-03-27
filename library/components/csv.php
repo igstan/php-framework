@@ -33,134 +33,111 @@
 /**
  * @package CSV
  */
-interface igs_CsvReader extends ArrayAccess, Iterator
+namespace igs\csv
 {
-    /**
-     * Options may include any or all of the following keys:
-     *      - delimiter, defaults to ,(comma)
-     *      - enclosure, defaults to "(double quote)
-     *      - escape,    defaults to \(backslash)
-     *
-     * @param iterateable $csvFile
-     * @param hashmap     $options OPTIONAL
-     */
-    public function __construct($csvFile, $options = array());
-}
+    if (! function_exists('igs\util\is_iter'))
+        require __DIR__ . '/utils.php';
 
-/**
- * @package CSV
- */
-interface igs_CsvWriter
-{
-    /**
-     * Options may include any or all of the following keys:
-     *      - delimiter, defaults to ,(comma)
-     *      - enclosure, defaults to "(double quote)
-     *      - escape,    defaults to \(backslash)
-     *
-     * @param iterateable $stream
-     * @param hashmap     $options OPTIONAL
-     */
-    public function __construct($data, $options = array());
-}
-
-/**
- * @package CSV
- */
-class igsd_CsvReader implements igs_CsvReader
-{
-    /**
-     * @var string Character that separates cell values
-     */
-    public $_delimiter = ',';
+    use igs\utils as util;
 
     /**
-     * @var string Character that encloses the value of each "cell"
+     * @package CSV
      */
-    public $_enclosure = '"';
-
-    /**
-     * @var string Caracter to escape special characters
-     */
-    public $_escape    = '\\';
-
-    /**
-     * Options may include any or all of the following keys:
-     *      - delimiter, defaults to ,(comma)
-     *      - enclosure, defaults to "(double quote)
-     *      - escape,    defaults to \(backslash)
-     *
-     * @param iterateable $stream
-     * @param hashmap     $options OPTIONAL
-     */
-    public function __construct($stream, $options = array())
+    class Reader
     {
-        $this->_stream($stream);
-        $this->_options($options);
+        /**
+         * @var string Character that separates cell values
+         */
+        var $_delimiter = ',';
+
+        /**
+         * @var string Character that encloses the value of each "cell"
+         */
+        var $_enclosure = '"';
+
+        /**
+         * @var string Caracter to escape special characters
+         */
+        var $_escape    = '\\';
+
+        /**
+         * Options may include any or all of the following keys:
+         *      - delimiter, defaults to ,(comma)
+         *      - enclosure, defaults to "(double quote)
+         *      - escape,    defaults to \(backslash)
+         *
+         * @param iterateable $stream
+         * @param hashmap     $options OPTIONAL
+         */
+        function __construct($stream, $options = array())
+        {
+            $this->_stream($stream);
+            $this->_options($options);
+        }
+
+        /**
+         * @param  iterateable $stream
+         * @return Reader
+         */
+        function _stream($data)
+        {
+            if (! (is_array($options) || $options instanceof \Traversable)) {
+                throw new \InvalidArgumentException(
+                    '$data must be an array or an object implementing Traversable)'
+                );
+            }
+
+            $this->stream = $data;
+            return $this;
+        }
+
+        /**
+         * @param  hashtable $options
+         * @return void
+         */
+        function _options($options)
+        {
+            if (! (is_array($options) || $options instanceof \ArrayAccess)) {
+                throw new \InvalidArgumentException(
+                    '$data must be an array or an object implementing ArrayAccess'
+                );
+            }
+
+            foreach ($options as $option => $value) {
+                $this->option($option, $value);
+            }
+        }
+
+        /**
+         * @param string $value
+         * @param string $name  OPTIONAL
+         */
+        function _option($value, $name = null)
+        {
+            $options = array('delimiter', 'enclosure', 'escape');
+
+            if (in_array($name, $options)) {
+                $this->$name = $value;
+            }
+
+            return $this;
+        }
     }
 
     /**
+     * Options may include any or all of the following keys:
+     *      - delimiter, defaults to ,(comma)
+     *      - enclosure, defaults to "(double quote)
+     *      - escape,    defaults to \(backslash)
+     *
      * @param  array|Traversable|igs_Stream $stream
+     * @param  array|ArrayAccess $options
      * @return igs_DefaultCsvReader
      */
-    public function _stream($data)
+    function Reader($data, $options = array())
     {
-        if (! (is_array($options) || $options instanceof Traversable)) {
-            throw new InvalidArgumentException(
-                '$data must be an array or an object implementing Traversable)'
-            );
-        }
-
-        $this->stream = $data;
-        return $this;
+        return new Reader($data, $options);
     }
 
-    /**
-     * @param  hashtable $options
-     * @return void
-     */
-    public function _options($options)
-    {
-        if (! (is_array($options) || $options instanceof ArrayAccess)) {
-            throw new InvalidArgumentException(
-                '$data must be an array or an object implementing ArrayAccess'
-            );
-        }
-
-        foreach ($options as $option => $value) {
-            $this->option($option, $value);
-        }
-    }
-
-    /**
-     * @param string $value
-     * @param string $name  OPTIONAL
-     */
-    public function _option($value, $name = null)
-    {
-        $options = array('delimiter', 'enclosure', 'escape');
-
-        if (in_array($name, $options)) {
-            $this->$name = $value;
-        }
-
-        return $this;
-    }
+    const Reader = 'igs\csv\Reader';
 }
-
-/**
- * Options may include any or all of the following keys:
- *      - delimiter, defaults to ,(comma)
- *      - enclosure, defaults to "(double quote)
- *      - escape,    defaults to \(backslash)
- *
- * @param  array|Traversable|igs_Stream $stream
- * @param  array|ArrayAccess $options
- * @return igs_DefaultCsvReader
- */
-function igsd_CsvReader($data, $options = array())
-{
-    return new igsd_CsvReader($data, $options);
-}
-
-define('igsd_CsvReader', 'igsd_CsvReader');
