@@ -115,6 +115,10 @@ class igsd_CsvReader implements igs_CsvReader
         return $this;
     }
 
+    /**
+     * @param  hashtable $options
+     * @return void
+     */
     public function _options($options)
     {
         if (! (is_array($options) || $options instanceof ArrayAccess)) {
