@@ -43,7 +43,7 @@ namespace igs\csv
     /*
      * Include strutures specified in the import statements
      */
-    require_once __DIR__ . '/utils.php';
+    require_once 'utils.php';
 
     /**
      * @package CSV
