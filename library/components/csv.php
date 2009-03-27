@@ -35,10 +35,15 @@
  */
 namespace igs\csv
 {
-    if (! function_exists('igs\util\is_iter'))
-        require __DIR__ . '/utils.php';
-
+    /*
+     * Import necessary components
+     */
     use igs\utils as util;
+
+    /*
+     * Include strutures specified in the import statements
+     */
+    require_once __DIR__ . '/utils.php';
 
     /**
      * @package CSV
