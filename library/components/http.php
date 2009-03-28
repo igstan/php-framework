@@ -30,22 +30,20 @@
  * @package   HTTP
  */
 
-namespace igs\http
+namespace igs
 {
 
 /**
  * @package HTTP
  */
-class Request
+class HttpRequest
 {
     const HTTP_1_0 = 1.0;
 
     const HTTP_1_1 = 1.1;
 
     function __construct($method, $protocol, $headers, $cookies, $queries, $postData, $files)
-    {
-
-    }
+    {}
 
     var $_method;
 
@@ -200,15 +198,15 @@ class Request
  * @package HTTP
  * @return  Request
  */
-function Request()
+function HttpRequest()
 {
-    return new Request;
+    return new HttpRequest;
 }
 
 /**
  * @package HTTP
  */
-class Response
+class HttpResponse
 {
     /**
      * @param string           $body
@@ -228,10 +226,9 @@ class Response
     {}
 
     /**
-     * @param  igs_VectorFactory $vectorFactory OPTIONAL
-     * @return array|igs_Vector
+     * @return iterateable
      */
-    function getHeaders(igs_VectorFactory $vectorFactory = null)
+    function getHeaders()
     {}
 
     /**
@@ -250,10 +247,9 @@ class Response
     {}
 
     /**
-     * @param  igs_VectorFactory $vectorFactory OPTIONAL
-     * @return array|igs_Vector
+     * @return iterateable
      */
-    function getCookies(igs_VectorFactory $vectorFactory = null)
+    function getCookies()
     {}
 
     /**
@@ -279,15 +275,15 @@ class Response
  * @package HTTP
  * @return  Response
  */
-function Response()
+function HttpResponse()
 {
-    return new Response;
+    return new HttpResponse;
 }
 
 /**
  * @package HTTP
  */
-class ResponseBuilder
+class HttpResponseBuilder
 {
     /**
      * @param  string $name
@@ -345,7 +341,7 @@ class ResponseBuilder
  *
  * @package HTTP
  */
-class Client
+class HttpClient
 {
     /**
      * @param HttpRequest $request
@@ -373,7 +369,7 @@ class Client
  *
  * @package HTTP
  */
-class Cookie
+class HttpCookie
 {
     /**
      * For cookies implementing Cookie-1 protocol (header: Set-Cookie)
@@ -554,12 +550,12 @@ function Url($url)
     return new Url($url);
 }
 
-const Url = 'igs\http\Url';
+const Url = 'igs\Url';
 
 /**
  * @package HTTP
  */
-class igs_HttpProxy
+class HttpProxy
 {
     /**
      * The filter may implement any of the following methods:
