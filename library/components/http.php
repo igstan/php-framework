@@ -49,9 +49,9 @@ class Request
     {}
 
     /**
-     * @return string|igs_Uri OPTIONAL
+     * @return Uri
      */
-    function getUri(igs_UriFactory $uriFactory = null)
+    function getUri()
     {}
 
     /**
@@ -69,10 +69,9 @@ class Request
     {}
 
     /**
-     * @param  igs_VectorFactory $vectorFactory OPTIONAL
-     * @return array|igs_Vector
+     * @return iterateable
      */
-    function getHeaders(igs_VectorFactory $vectorFactory = null)
+    function getHeaders()
     {}
 
     /**
@@ -91,10 +90,9 @@ class Request
     {}
 
     /**
-     * @param  igs_VectorFactory $vectorFactory OPTIONAL
-     * @return array|igs_Vector
+     * @return iterateable
      */
-    function getCookies(igs_VectorFactory $vectorFactory = null)
+    function getCookies()
     {}
 
     /**
@@ -112,10 +110,9 @@ class Request
     {}
 
     /**
-     * @param  igs_VectorFactory $vectorFactory OPTIONAL
-     * @return array|igs_Vector
+     * @return iterateable
      */
-    function getQueries(igs_VectorFactory $vectorFactory = null)
+    function getQueries()
     {}
 
     /**
@@ -134,10 +131,9 @@ class Request
     {}
 
     /**
-     * @param  igs_VectorFactory $vectorFactory OPTIONAL
-     * @return array|igs_Vector
+     * @return iterateable
      */
-    function getPostData(igs_VectorFactory $vectorFactory = null)
+    function getPostData()
     {}
 
     /**
@@ -156,10 +152,9 @@ class Request
     {}
 
     /**
-     * @param  igs_VectorFactory $vectorFactory OPTIONAL
-     * @return array|igs_Vector
+     * @return iterateable
      */
-    function getFiles(igs_VectorFactory $vectorFactory = null)
+    function getFiles()
     {}
 
     /**
@@ -167,27 +162,6 @@ class Request
      * @return boolean
      */
     function hasFile($name)
-    {}
-
-    /**
-     * @param  string $name
-     * @param  mixed  $default OPTIONAL
-     * @return mixed
-     */
-    function getArgument($name, $default = null)
-    {}
-
-    /**
-     * @param  igs_VectorFactory $vectorFactory OPTIONAL
-     * @return array|igs_Vector
-     */
-    function getArguments(igs_VectorFactory $vectorFactory = null)
-    {}
-
-    /**
-     * @return boolean
-     */
-    function hasArgument($name)
     {}
 }
 
