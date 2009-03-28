@@ -42,11 +42,32 @@ class Request
 
     const HTTP_1_1 = 1.1;
 
+    function __construct($method, $protocol, $headers, $cookies, $queries, $postData, $files)
+    {
+
+    }
+
+    var $_method;
+
     /**
      * @return string
      */
     function getMethod()
     {}
+
+    /**
+     * @return boolean
+     */
+    function isGet()
+    {}
+
+    /**
+     * @return boolean
+     */
+    function isPost()
+    {}
+
+    var $_uri;
 
     /**
      * @return Uri
@@ -59,6 +80,8 @@ class Request
      */
     function getProtocolVersion()
     {}
+
+    var $_headers;
 
     /**
      * @param  string $name
@@ -81,6 +104,8 @@ class Request
     function hasHeader($name)
     {}
 
+    var $_cookies;
+
     /**
      * @param  string $name
      * @param  mixed  $default OPTIONAL
@@ -100,6 +125,8 @@ class Request
      */
     function hasCookie($name)
     {}
+
+    var $_queries;
 
     /**
      * @param  string $name
@@ -122,6 +149,8 @@ class Request
     function hasQuery($name)
     {}
 
+    var $_postData;
+
     /**
      * @param  string $name
      * @param  mixed  $default OPTIONAL
@@ -142,6 +171,8 @@ class Request
      */
     function hasPostDatum($name)
     {}
+
+    var $_files;
 
     /**
      * @param  string $name
@@ -177,7 +208,7 @@ function Request()
 /**
  * @package HTTP
  */
-class igs_HttpResponse
+class Response
 {
     /**
      * @param string           $body
