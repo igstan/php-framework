@@ -30,10 +30,13 @@
  * @package   HTTP
  */
 
+namespace igs\http
+{
+
 /**
  * @package HTTP
  */
-interface igs_HttpRequest
+class Request
 {
     const HTTP_1_0 = 1.0;
 
@@ -42,152 +45,165 @@ interface igs_HttpRequest
     /**
      * @return string
      */
-    public function getMethod();
+    function getMethod()
+    {}
 
     /**
      * @return string|igs_Uri OPTIONAL
      */
-    public function getUri(igs_UriFactory $uriFactory = null);
+    function getUri(igs_UriFactory $uriFactory = null)
+    {}
 
     /**
      * @return HTTP_1_0|HTTP_1_1
      */
-    public function getProtocolVersion();
+    function getProtocolVersion()
+    {}
 
     /**
      * @param  string $name
      * @param  mixed  $default OPTIONAL
      * @return mixed
      */
-    public function getHeader($name, $default = null);
+    function getHeader($name, $default = null)
+    {}
 
     /**
      * @param  igs_VectorFactory $vectorFactory OPTIONAL
      * @return array|igs_Vector
      */
-    public function getHeaders(igs_VectorFactory $vectorFactory = null);
+    function getHeaders(igs_VectorFactory $vectorFactory = null)
+    {}
 
     /**
      * @param  string
      * @return boolean
      */
-    public function hasHeader($name);
+    function hasHeader($name)
+    {}
 
     /**
      * @param  string $name
      * @param  mixed  $default OPTIONAL
      * @return mixed
      */
-    public function getCookie($name, $default = null);
+    function getCookie($name, $default = null)
+    {}
 
     /**
      * @param  igs_VectorFactory $vectorFactory OPTIONAL
      * @return array|igs_Vector
      */
-    public function getCookies(igs_VectorFactory $vectorFactory = null);
+    function getCookies(igs_VectorFactory $vectorFactory = null)
+    {}
 
     /**
      * @return boolean
      */
-    public function hasCookie($name);
+    function hasCookie($name)
+    {}
 
     /**
      * @param  string $name
      * @param  mixed  $default OPTIONAL
      * @return mixed
      */
-    public function getQuery($name, $default = null);
+    function getQuery($name, $default = null)
+    {}
 
     /**
      * @param  igs_VectorFactory $vectorFactory OPTIONAL
      * @return array|igs_Vector
      */
-    public function getQueries(igs_VectorFactory $vectorFactory = null);
+    function getQueries(igs_VectorFactory $vectorFactory = null)
+    {}
 
     /**
      * @paran  string $name
      * @return boolean
      */
-    public function hasQuery($name);
+    function hasQuery($name)
+    {}
 
     /**
      * @param  string $name
      * @param  mixed  $default OPTIONAL
      * @return mixed
      */
-    public function getPostDatum($name, $default = null);
+    function getPostDatum($name, $default = null)
+    {}
 
     /**
      * @param  igs_VectorFactory $vectorFactory OPTIONAL
      * @return array|igs_Vector
      */
-    public function getPostData(igs_VectorFactory $vectorFactory = null);
+    function getPostData(igs_VectorFactory $vectorFactory = null)
+    {}
 
     /**
      * @param  string $name
      * @return boolean
      */
-    public function hasPostDatum($name);
+    function hasPostDatum($name)
+    {}
 
     /**
      * @param  string $name
      * @param  mixed  $default OPTIONAL
      * @return mixed
      */
-    public function getFile($name, $default = null);
+    function getFile($name, $default = null)
+    {}
 
     /**
      * @param  igs_VectorFactory $vectorFactory OPTIONAL
      * @return array|igs_Vector
      */
-    public function getFiles(igs_VectorFactory $vectorFactory = null);
+    function getFiles(igs_VectorFactory $vectorFactory = null)
+    {}
 
     /**
      * @param  string $name
      * @return boolean
      */
-    public function hasFile($name);
+    function hasFile($name)
+    {}
 
     /**
      * @param  string $name
      * @param  mixed  $default OPTIONAL
      * @return mixed
      */
-    public function getArgument($name, $default = null);
+    function getArgument($name, $default = null)
+    {}
 
     /**
      * @param  igs_VectorFactory $vectorFactory OPTIONAL
      * @return array|igs_Vector
      */
-    public function getArguments(igs_VectorFactory $vectorFactory = null);
+    function getArguments(igs_VectorFactory $vectorFactory = null)
+    {}
 
     /**
      * @return boolean
      */
-    public function hasArgument($name);
+    function hasArgument($name)
+    {}
 }
 
 /**
- * TODO Implementation
- *
  * @package HTTP
+ * @return  Request
  */
-class igsd_HttpRequest implements igs_HttpRequest
-{}
-
-/**
- * @package HTTP
- * @return  igs_DefaultHttpRequest
- */
-function igsd_HttpRequest()
+function Request()
 {
-    return new igsd_HttpRequest;
+    return new Request;
 }
 
 /**
  * @package HTTP
  */
-interface igs_HttpResponse
+class igs_HttpResponse
 {
     /**
      * @param string           $body
@@ -195,70 +211,72 @@ interface igs_HttpResponse
      * @param array|igs_Vector $cookies
      * @param integer          $status
      */
-    public function __construct($body = null, $headers = null, $cookies = null, $status = 200);
+    function __construct($body = null, $headers = null, $cookies = null, $status = 200)
+    {}
 
     /**
      * @param  string $name
      * @param  mixed  $default OPTIONAL
      * @return mixed
      */
-    public function getHeader($name, $default = null);
+    function getHeader($name, $default = null)
+    {}
 
     /**
      * @param  igs_VectorFactory $vectorFactory OPTIONAL
      * @return array|igs_Vector
      */
-    public function getHeaders(igs_VectorFactory $vectorFactory = null);
+    function getHeaders(igs_VectorFactory $vectorFactory = null)
+    {}
 
     /**
      * @param  string
      * @return boolean
      */
-    public function hasHeader($name);
+    function hasHeader($name)
+    {}
 
     /**
      * @param  string $name
      * @param  mixed  $default OPTIONAL
      * @return mixed
      */
-    public function getCookie($name, $default = null);
+    function getCookie($name, $default = null)
+    {}
 
     /**
      * @param  igs_VectorFactory $vectorFactory OPTIONAL
      * @return array|igs_Vector
      */
-    public function getCookies(igs_VectorFactory $vectorFactory = null);
+    function getCookies(igs_VectorFactory $vectorFactory = null)
+    {}
 
     /**
      * @return boolean
      */
-    public function hasCookie($name);
+    function hasCookie($name)
+    {}
 
     /**
      * @return string
      */
-    public function getBody();
+    function getBody()
+    {}
 
     /**
      * @return boolean
      */
-    public function hasBody();
+    function hasBody()
+    {}
 }
 
 /**
- * TODO Implementation
  * @package HTTP
+ * @return  Response
  */
-class igsd_HttpResponse implements igs_HttpResponse
-{}
-
-/**
- * @package HTTP
- * @return  igs_DefaultHttpResponse
- */
-function igsd_HttpResponse()
+function Response()
 {
-    return new igsd_HttpResponse;
+    return new Response;
 }
 
 /**
@@ -316,16 +334,19 @@ interface igs_HttpResponseBuilder
  *
  * @package HTTP
  */
-interface igs_HttpClient
+class Client
 {
     /**
      * @param igs_HttpRequest $request
      */
-    public function sendRequest(igs_HttpRequest $request);
+    function sendRequest(igs_HttpRequest $request)
+    {}
 
-    public function setRequestAdapter(igs_HttpRequestAdapter $adapter);
+    function setRequestAdapter(igs_HttpRequestAdapter $adapter)
+    {}
 
-    public function setCacheAdapter(igs_CacheAdapter $adapter);
+    function setCacheAdapter(igs_CacheAdapter $adapter)
+    {}
 }
 
 /**
@@ -335,7 +356,7 @@ interface igs_HttpClient
  *
  * @package HTTP
  */
-interface igs_HttpCookie
+class Cookie
 {
     /**
      * For cookies implementing Cookie-1 protocol (header: Set-Cookie)
@@ -361,7 +382,7 @@ interface igs_HttpCookie
      * @param boolean                 $httpOnly OPTIONAL
      * @param integer                 $protocol OPTIONAL
      */
-    public function __construct(
+    function __construct(
         $name,
         $value    = null,
         $expire   = null,
@@ -370,69 +391,80 @@ interface igs_HttpCookie
         $secure   = null,
         $httpOnly = true,
         $protocol = self::COOKIE_1
-    );
+    ){}
 
     /**
      * @return string
      */
-    public function getName();
+    function name()
+    {}
 
     /**
      * @return string
      */
-    public function getValue();
+    function value()
+    {}
 
     /**
      * @param  callable $dateFactory OPTIONAL
      * @return integer|igs_Date
      */
-    public function getExpiryTime($dateFactory = null);
+    function expiryTime($dateFactory = null)
+    {}
 
     /**
      * @return boolean
      */
-    public function isSessionCookie();
+    function isSessionCookie()
+    {}
 
     /**
      * @return boolean
      */
-    public function hasExpired();
+    function hasExpired()
+    {}
 
     /**
      * @return string
      */
-    public function getPath();
+    function path()
+    {}
 
     /**
      * @return string
      */
-    public function getDomain();
+    function domain()
+    {}
 
     /**
      * @return boolean
      */
-    public function isSecure();
+    function isSecure()
+    {}
 
     /**
      * @return boolean
      */
-    public function isHttpOnly();
+    function isHttpOnly()
+    {}
 
     /**
      * @return boolean
      */
-    public function isFirstProtocolCookie();
+    function isFirstProtocolCookie()
+    {}
 
     /**
      * @return boolean
      */
-    public function isSecondProtocolCookie();
+    function isSecondProtocolCookie()
+    {}
 }
 
 /**
  * @package HTTP
  */
-interface igs_HttpCookies extends ArrayAccess, Countable, Iterator
+class Cookies implements ArrayAccess, Countable, Iterator
 {
 
 }
@@ -440,40 +472,10 @@ interface igs_HttpCookies extends ArrayAccess, Countable, Iterator
 /**
  * @package HTTP
  */
-interface igs_Url
+class Url
 {
     /**
-     * @param string|array|object $url
-     */
-    public function __construct($url);
-
-    public function protocol();
-
-    public function port();
-
-    public function hostname();
-
-    public function path();
-
-    public function queryString($asArray = true);
-
-    public function queryStringDelimiter();
-
-    public function fragment();
-
-    public function username();
-
-    public function password();
-}
-
-/**
- * @package HTTP
- */
-class igsd_Url implements igs_Url
-{
-    /**
-     * @param  string|array|object $url
-     * @throws InvalidArgumentException
+     * @param mixed $url
      */
     public function __construct($url)
     {}
@@ -535,23 +537,20 @@ class igsd_Url implements igs_Url
 
 /**
  * @package HTTP
- * @param   string|array|object $url
- * @return  igsd_Url
+ * @param   mixed $url
+ * @return  Url
  */
-function igsd_Url($url)
+function Url($url)
 {
-    return new igsd_Url($url);
+    return new Url($url);
 }
 
-/**
- * @package HTTP
- */
-define('igsd_Url', 'igsd_Url');
+const Url = 'igs\http\url';
 
 /**
  * @package HTTP
  */
-interface igs_HttpProxy
+class igs_HttpProxy
 {
     /**
      * The filter may implement any of the following methods:
@@ -565,20 +564,26 @@ interface igs_HttpProxy
      *
      * @param object $filter
      */
-    public function registerFilter($filter);
+    function registerFilter($filter)
+    {}
 
     /**
      * @param integer|object Index or filter instance
      */
-    public function removeFilter($filter);
+    function removeFilter($filter)
+    {}
 
     /**
      * @return array All registered filters with this HTTP proxy
      */
-    public function filters();
+    function filters()
+    {}
 
     /**
      * @return igs_HttpResponse
      */
-    public function proxyRequest($request = null);
+    function proxyRequest($request = null)
+    {}
+}
+
 }
