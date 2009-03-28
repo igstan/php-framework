@@ -86,7 +86,7 @@ namespace igs\csv
          */
         function _stream($data)
         {
-            if (! (is_array($options) || $options instanceof \Traversable)) {
+            if (utils\is_iter($data) === false) {
                 throw new \InvalidArgumentException(
                     '$data must be an array or an object implementing Traversable)'
                 );
@@ -102,7 +102,7 @@ namespace igs\csv
          */
         function _options($options)
         {
-            if (! (is_array($options) || $options instanceof \ArrayAccess)) {
+            if (utils\is_hashtable($options) === false) {
                 throw new \InvalidArgumentException(
                     '$data must be an array or an object implementing ArrayAccess'
                 );
