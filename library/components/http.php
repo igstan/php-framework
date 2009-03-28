@@ -282,51 +282,57 @@ function Response()
 /**
  * @package HTTP
  */
-interface igs_HttpResponseBuilder
+class ResponseBuilder
 {
     /**
      * @param  string $name
      * @param  string $value
-     * @return igs_HttpResponseBuilder
+     * @return ResponseBuilder
      */
-    public function addHeader($name, $value);
+    function addHeader($name, $value)
+    {}
 
     /**
-     * @param  array|igs_Vector $headers
-     * @return igs_HttpResponseBuilder
+     * @param  hashtable $headers
+     * @return ResponseBuilder
      */
-    public function addHeaders($headers);
+    function addHeaders($headers)
+    {}
 
     /**
      * @param  string $name
      * @param  string $value
-     * @return igs_HttpResponseBuilder
+     * @return ResponseBuilder
      */
-    public function addCookie($name, $value);
+    function addCookie($name, $value)
+    {}
 
     /**
-     * @param  array|igs_Vector $headers
-     * @return igs_HttpResponseBuilder
+     * @param  hashtable $headers
+     * @return ResponseBuilder
      */
-    public function addCookies($headers);
+    function addCookies($headers)
+    {}
 
     /**
-     * @param string $body
-     * @return igs_HttpResponseBuilder
+     * @param  string $body
+     * @return ResponseBuilder
      */
-    public function prependBody($body);
+    function prependBody($body)
+    {}
 
     /**
-     * @param string $body
-     * @return igs_HttpResponseBuilder
+     * @param  string $body
+     * @return ResponseBuilder
      */
-    public function appendBody($body);
+    function appendBody($body)
+    {}
 
     /**
-     * @param  igs_HttpResponseFactory $responseFactory OPTIONAL
-     * @return igs_HttpResponse
+     * @return Response
      */
-    public function getResponse(igs_HttpResponseFactory $responseFactory = null);
+    function getResponse()
+    {}
 }
 
 /**
@@ -337,15 +343,21 @@ interface igs_HttpResponseBuilder
 class Client
 {
     /**
-     * @param igs_HttpRequest $request
+     * @param HttpRequest $request
      */
-    function sendRequest(igs_HttpRequest $request)
+    function sendRequest($request)
     {}
 
-    function setRequestAdapter(igs_HttpRequestAdapter $adapter)
+    /**
+     * @param mixed $adapter
+     */
+    function setRequestAdapter($adapter)
     {}
 
-    function setCacheAdapter(igs_CacheAdapter $adapter)
+    /**
+     * @param mixed $adapter
+     */
+    function setCacheAdapter($adapter)
     {}
 }
 
@@ -407,7 +419,7 @@ class Cookie
 
     /**
      * @param  callable $dateFactory OPTIONAL
-     * @return integer|igs_Date
+     * @return mixed
      */
     function expiryTime($dateFactory = null)
     {}
@@ -459,14 +471,6 @@ class Cookie
      */
     function isSecondProtocolCookie()
     {}
-}
-
-/**
- * @package HTTP
- */
-class Cookies implements ArrayAccess, Countable, Iterator
-{
-
 }
 
 /**
@@ -545,7 +549,7 @@ function Url($url)
     return new Url($url);
 }
 
-const Url = 'igs\http\url';
+const Url = 'igs\http\Url';
 
 /**
  * @package HTTP
